@@ -30,5 +30,26 @@ namespace Clinic
             ifrm.Show(); // отображаем Form1
 
         }
+
+        private void btnRegistrationOk_Click(object sender, EventArgs e)
+        {            
+            switch (comboBoxChooseStatus.SelectedIndex)
+            {
+                case 0:
+                    Form appfrm = new Appointment();
+                    appfrm.Left = this.Left; // задаём открываемой форме позицию слева равную позиции текущей формы
+                    appfrm.Top = this.Top; // задаём открываемой форме позицию сверху равную позиции текущей формы
+                    appfrm.Show(); // отображаем Form2
+                    this.Hide(); // скрываем Form1 (this - текущая форма)
+                    break;
+                case 1:
+                    Form schfrm = new Schedule();
+                    schfrm.Left = this.Left; // задаём открываемой форме позицию слева равную позиции текущей формы
+                    schfrm.Top = this.Top; // задаём открываемой форме позицию сверху равную позиции текущей формы
+                    schfrm.Show(); // отображаем Form2
+                    this.Hide(); // скрываем Form1 (this - текущая форма)
+                    break;
+            }
+        }
     }
 }

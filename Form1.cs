@@ -12,30 +12,114 @@ namespace Clinic
 {
     public partial class Form1 : Form
     {
+        // список для хранения данных из базы
+        List<string[]> listPatients;
+        List<string[]> listDocs;
+
         public Form1()
         {
-            InitializeComponent();            
+            InitializeComponent();
+            comboBoxChooseStatus.Items.Add("Patient");
+            comboBoxChooseStatus.Items.Add("Doc");
 
-        }
-        
-        private void buttonAppointments_Click(object sender, EventArgs e)
-        {
-            Form authfrm = new Authorization();
-            authfrm.Left = this.Left; // задаём открываемой форме позицию слева равную позиции текущей формы
-            authfrm.Top = this.Top; // задаём открываемой форме позицию сверху равную позиции текущей формы
-            authfrm.Show(); // отображаем Form2
-            this.Hide(); // скрываем Form1 (this - текущая форма)
-
+            listPatients = new List<string[]>();
+            listDocs = new List<string[]>();
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        // асинхронная функция для загрузки данных из базы в список data
+        private async Task LoadPatients()
         {
-            Form regfrm = new Authorization();
+            await Task.Run(() =>
+            {
+                clinicEntities db = new clinicEntities();
+                var pat = db.patients.ToList();
+                foreach (var p in pat)
+                {
+                    listPatients.Add(new string[2]);
+                    listPatients[listPatients.Count - 1][0] = p.id.ToString();
+                    listPatients[listPatients.Count - 1][1] = p.name.ToString();
+                }
+            });
+        }
+
+        // асинхронная функция для загрузки данных из базы в список data
+        private async Task LoadDocs()
+        {
+            await Task.Run(() =>
+            {
+                clinicEntities db = new clinicEntities();
+                
+                var doc = db.docs.ToList();
+                foreach (var d in doc)
+                {
+                    listDocs.Add(new string[2]);
+                    listDocs[listDocs.Count - 1][0] = d.id.ToString();
+                    listDocs[listDocs.Count - 1][1] = d.name.ToString();
+                }
+            });
+        }
+
+        private void btnReg_Click(object sender, EventArgs e)
+        {
+            Form regfrm = new Registration();
             regfrm.Left = this.Left; // задаём открываемой форме позицию слева равную позиции текущей формы
             regfrm.Top = this.Top; // задаём открываемой форме позицию сверху равную позиции текущей формы
             regfrm.Show(); // отображаем Form2
             this.Hide(); // скрываем Form1 (this - текущая форма)
 
+        }
+
+        private void btnApp_Click(object sender, EventArgs e)
+        {
+            switch (comboBoxChooseStatus.SelectedIndex)
+            {
+                case 0:
+                    Form appfrm = new Appointment();
+                    appfrm.Left = this.Left; // задаём открываемой форме позицию слева равную позиции текущей формы
+                    appfrm.Top = this.Top; // задаём открываемой форме позицию сверху равную позиции текущей формы
+                    appfrm.Show(); // отображаем Form2
+                    this.Hide(); // скрываем Form1 (this - текущая форма)
+                    break;
+                case 1:
+                    Form schfrm = new Schedule();
+                    schfrm.Left = this.Left; // задаём открываемой форме позицию слева равную позиции текущей формы
+                    schfrm.Top = this.Top; // задаём открываемой форме позицию сверху равную позиции текущей формы
+                    schfrm.Show(); // отображаем Form2
+                    this.Hide(); // скрываем Form1 (this - текущая форма)
+                    break;
+            }
+        }
+
+        public async void fillComboboxID(string status)
+        {
+            switch (status)
+            {
+                case "Patient":
+                    await LoadPatients();
+                    comboBoxChooseID.Items.Clear();
+                    foreach(var l in listPatients)
+                    {
+                        comboBoxChooseID.Items.Add(l[1].ToString());
+                    }
+                    break;
+                case "Doc":
+                    await LoadDocs();
+                    comboBoxChooseID.Items.Clear();
+                    foreach (var l in listDocs)
+                    {
+                        comboBoxChooseID.Items.Add(l[1].ToString());
+                    }
+                    break;
+            }
+
+        }
+
+        private void comboBoxChooseStatus_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            
+            ComboBox comboBox = (ComboBox)sender;
+            string id = comboBox.SelectedItem.ToString();
+            fillComboboxID(id);
         }
     }
 }

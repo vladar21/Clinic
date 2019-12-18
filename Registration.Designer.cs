@@ -35,7 +35,7 @@
             this.textBoxName = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
             this.comboBoxChooseStatus = new System.Windows.Forms.ComboBox();
-            this.buttonOk = new System.Windows.Forms.Button();
+            this.btnRegistrationOk = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // label1
@@ -86,7 +86,7 @@
             // 
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label4.Location = new System.Drawing.Point(53, 51);
+            this.label4.Location = new System.Drawing.Point(53, 53);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(111, 18);
             this.label4.TabIndex = 5;
@@ -95,26 +95,27 @@
             // comboBoxChooseStatus
             // 
             this.comboBoxChooseStatus.FormattingEnabled = true;
-            this.comboBoxChooseStatus.Location = new System.Drawing.Point(182, 51);
+            this.comboBoxChooseStatus.Location = new System.Drawing.Point(182, 53);
             this.comboBoxChooseStatus.Name = "comboBoxChooseStatus";
             this.comboBoxChooseStatus.Size = new System.Drawing.Size(121, 21);
             this.comboBoxChooseStatus.TabIndex = 6;
             // 
-            // buttonOk
+            // btnRegistrationOk
             // 
-            this.buttonOk.Location = new System.Drawing.Point(163, 164);
-            this.buttonOk.Name = "buttonOk";
-            this.buttonOk.Size = new System.Drawing.Size(75, 23);
-            this.buttonOk.TabIndex = 11;
-            this.buttonOk.Text = "Ok";
-            this.buttonOk.UseVisualStyleBackColor = true;
+            this.btnRegistrationOk.Location = new System.Drawing.Point(163, 164);
+            this.btnRegistrationOk.Name = "btnRegistrationOk";
+            this.btnRegistrationOk.Size = new System.Drawing.Size(75, 23);
+            this.btnRegistrationOk.TabIndex = 11;
+            this.btnRegistrationOk.Text = "Ok";
+            this.btnRegistrationOk.UseVisualStyleBackColor = true;
+            this.btnRegistrationOk.Click += new System.EventHandler(this.btnRegistrationOk_Click);
             // 
             // Registration
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(480, 205);
-            this.Controls.Add(this.buttonOk);
+            this.Controls.Add(this.btnRegistrationOk);
             this.Controls.Add(this.comboBoxChooseStatus);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.textBoxName);
@@ -139,6 +140,6 @@
         private System.Windows.Forms.TextBox textBoxName;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.ComboBox comboBoxChooseStatus;
-        private System.Windows.Forms.Button buttonOk;
+        private System.Windows.Forms.Button btnRegistrationOk;
     }
 }

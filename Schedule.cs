@@ -10,17 +10,14 @@ using System.Windows.Forms;
 
 namespace Clinic
 {
-    public partial class Authorization : Form
+    public partial class Schedule : Form
     {
-        public Authorization()
+        public Schedule()
         {
             InitializeComponent();
-            comboBoxChooseStatus.Items.Add("Patient");
-            comboBoxChooseStatus.Items.Add("Doc");
-            comboBoxChooseStatus.SelectedIndex = 0;
         }
 
-        private void Authorization_FormClosed(object sender, FormClosedEventArgs e)
+        private void Schedule_FormClosed(object sender, FormClosedEventArgs e)
         {
             // вызываем главную форму, которая открыла текущую, главная форма всегда = 0 - [0]
             Form ifrm = Application.OpenForms[0];

@@ -14,5 +14,6 @@ C:\Users\User\source\repos\Clinic\Clinic\obj\Debug\Clinic.csproj.CoreCompileInpu
 C:\Users\User\source\repos\Clinic\Clinic\obj\Debug\Clinic.csproj.CopyComplete
 C:\Users\User\source\repos\Clinic\Clinic\obj\Debug\Clinic.exe
 C:\Users\User\source\repos\Clinic\Clinic\obj\Debug\Clinic.pdb
-C:\Users\User\source\repos\Clinic\Clinic\obj\Debug\Clinic.Authorization.resources
 C:\Users\User\source\repos\Clinic\Clinic\obj\Debug\Clinic.Registration.resources
+C:\Users\User\source\repos\Clinic\Clinic\obj\Debug\Clinic.Appointment.resources
+C:\Users\User\source\repos\Clinic\Clinic\obj\Debug\Clinic.Schedule.resources
