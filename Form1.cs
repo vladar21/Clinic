@@ -28,7 +28,7 @@ namespace Clinic
 
         // асинхронная функция для загрузки данных из базы в список data
         private async Task LoadPatients()
-        {
+        {            
             await Task.Run(() =>
             {
                 clinicEntities db = new clinicEntities();
@@ -44,7 +44,7 @@ namespace Clinic
 
         // асинхронная функция для загрузки данных из базы в список data
         private async Task LoadDocs()
-        {
+        {            
             await Task.Run(() =>
             {
                 clinicEntities db = new clinicEntities();
@@ -61,10 +61,10 @@ namespace Clinic
 
         private void btnReg_Click(object sender, EventArgs e)
         {
-            Form regfrm = new Registration();
+            Form regfrm = new Registration(comboBoxChooseStatus.SelectedItem.ToString());
             regfrm.Left = this.Left; // задаём открываемой форме позицию слева равную позиции текущей формы
             regfrm.Top = this.Top; // задаём открываемой форме позицию сверху равную позиции текущей формы
-            regfrm.Show(); // отображаем Form2
+            regfrm.Show(); // отображаем Form2            
             this.Hide(); // скрываем Form1 (this - текущая форма)
 
         }
@@ -92,31 +92,30 @@ namespace Clinic
 
         public async void fillComboboxID(string status)
         {
+            comboBoxChooseID.Items.Clear();
             switch (status)
             {
                 case "Patient":
-                    await LoadPatients();
-                    comboBoxChooseID.Items.Clear();
+                    listPatients.Clear();
+                    await LoadPatients();                    
                     foreach(var l in listPatients)
                     {
                         comboBoxChooseID.Items.Add(l[1].ToString());
                     }
                     break;
                 case "Doc":
-                    await LoadDocs();
-                    comboBoxChooseID.Items.Clear();
+                    listDocs.Clear();
+                    await LoadDocs();                    
                     foreach (var l in listDocs)
                     {
                         comboBoxChooseID.Items.Add(l[1].ToString());
                     }
                     break;
             }
-
         }
 
         private void comboBoxChooseStatus_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            
+        {            
             ComboBox comboBox = (ComboBox)sender;
             string id = comboBox.SelectedItem.ToString();
             fillComboboxID(id);

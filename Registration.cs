@@ -12,12 +12,18 @@ namespace Clinic
 {
     public partial class Registration : Form
     {
-        public Registration()
+ 
+        public Registration(string Status)
         {
             InitializeComponent();
-            comboBoxChooseStatus.Items.Add("Patient");
-            comboBoxChooseStatus.Items.Add("Doc");
-            comboBoxChooseStatus.SelectedIndex = 0;
+            textBoxID.ReadOnly = true;            
+            textBoxStatus.ReadOnly = true;
+            textBoxStatus.Text = Status;
+
+            btnRegistrationOk.Visible = false;
+            label2.Visible = false;
+            textBoxID.Visible = false;
+
         }
 
         private void Registration_FormClosed(object sender, FormClosedEventArgs e)
@@ -33,22 +39,93 @@ namespace Clinic
 
         private void btnRegistrationOk_Click(object sender, EventArgs e)
         {            
-            switch (comboBoxChooseStatus.SelectedIndex)
+            switch (textBoxStatus.Text)
             {
-                case 0:
+                case "Patient":
                     Form appfrm = new Appointment();
                     appfrm.Left = this.Left; // задаём открываемой форме позицию слева равную позиции текущей формы
                     appfrm.Top = this.Top; // задаём открываемой форме позицию сверху равную позиции текущей формы
                     appfrm.Show(); // отображаем Form2
                     this.Hide(); // скрываем Form1 (this - текущая форма)
                     break;
-                case 1:
+                case "Doc":
                     Form schfrm = new Schedule();
                     schfrm.Left = this.Left; // задаём открываемой форме позицию слева равную позиции текущей формы
                     schfrm.Top = this.Top; // задаём открываемой форме позицию сверху равную позиции текущей формы
                     schfrm.Show(); // отображаем Form2
                     this.Hide(); // скрываем Form1 (this - текущая форма)
                     break;
+            }
+        }
+
+        private void btnRegister_Click(object sender, EventArgs e)
+        {
+            if (textBoxName.Text.Length > 0)
+            {
+                switch (textBoxStatus.Text){
+                    case "Patient":
+                        patients p = new patients();
+                        p.name = textBoxName.Text;
+                        if (AddPatient(p))
+                        {
+                            textBoxID.Text = p.id.ToString();
+                            btnRegister.Visible = false;
+                            textBoxName.ReadOnly = true;
+                            btnRegistrationOk.Visible = true;
+                            label2.Visible = true;
+                            textBoxID.Visible = true;
+                        }
+                        break;
+                    case "Doc":
+                        docs d = new docs();
+                        d.name = textBoxName.Text;
+                        if (AddDoc(d))
+                        {
+                            textBoxID.Text = d.id.ToString();
+                            btnRegister.Visible = false;
+                            textBoxName.ReadOnly = true;
+                            btnRegistrationOk.Visible = true;
+                            label2.Visible = true;
+                            textBoxID.Visible = true;
+                        }
+                        break;
+                }                
+            }
+        }
+
+        static bool AddPatient(patients p)
+        {
+            try
+            {
+                using (clinicEntities db = new clinicEntities())
+                {
+                    db.patients.Add(p);
+                    db.SaveChanges();                    
+                    return true;
+                }
+            }
+            catch
+            {
+                // логгируем ошибку, выдаем сообещине о неудачной попытке
+                return false;
+            }
+        }
+
+        static bool AddDoc(docs d)
+        {
+            try
+            {
+                using (clinicEntities db = new clinicEntities())
+                {
+                    db.docs.Add(d);
+                    db.SaveChanges();
+                    return true;
+                }
+            }
+            catch
+            {
+                // логгируем ошибку, выдаем сообещине о неудачной попытке
+                return false;
             }
         }
     }

@@ -34,8 +34,9 @@
             this.textBoxID = new System.Windows.Forms.TextBox();
             this.textBoxName = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
-            this.comboBoxChooseStatus = new System.Windows.Forms.ComboBox();
             this.btnRegistrationOk = new System.Windows.Forms.Button();
+            this.textBoxStatus = new System.Windows.Forms.TextBox();
+            this.btnRegister = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // label1
@@ -52,7 +53,7 @@
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label2.Location = new System.Drawing.Point(52, 89);
+            this.label2.Location = new System.Drawing.Point(60, 119);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(57, 18);
             this.label2.TabIndex = 1;
@@ -62,7 +63,7 @@
             // 
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label3.Location = new System.Drawing.Point(55, 121);
+            this.label3.Location = new System.Drawing.Point(55, 85);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(113, 18);
             this.label3.TabIndex = 2;
@@ -70,16 +71,17 @@
             // 
             // textBoxID
             // 
-            this.textBoxID.Location = new System.Drawing.Point(182, 89);
+            this.textBoxID.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.textBoxID.Location = new System.Drawing.Point(182, 119);
             this.textBoxID.Name = "textBoxID";
-            this.textBoxID.Size = new System.Drawing.Size(34, 20);
+            this.textBoxID.Size = new System.Drawing.Size(34, 24);
             this.textBoxID.TabIndex = 3;
             // 
             // textBoxName
             // 
-            this.textBoxName.Location = new System.Drawing.Point(182, 121);
+            this.textBoxName.Location = new System.Drawing.Point(182, 85);
             this.textBoxName.Name = "textBoxName";
-            this.textBoxName.Size = new System.Drawing.Size(247, 20);
+            this.textBoxName.Size = new System.Drawing.Size(268, 20);
             this.textBoxName.TabIndex = 4;
             // 
             // label4
@@ -92,31 +94,44 @@
             this.label4.TabIndex = 5;
             this.label4.Text = "Patient or Doc?";
             // 
-            // comboBoxChooseStatus
-            // 
-            this.comboBoxChooseStatus.FormattingEnabled = true;
-            this.comboBoxChooseStatus.Location = new System.Drawing.Point(182, 53);
-            this.comboBoxChooseStatus.Name = "comboBoxChooseStatus";
-            this.comboBoxChooseStatus.Size = new System.Drawing.Size(121, 21);
-            this.comboBoxChooseStatus.TabIndex = 6;
-            // 
             // btnRegistrationOk
             // 
-            this.btnRegistrationOk.Location = new System.Drawing.Point(163, 164);
+            this.btnRegistrationOk.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.btnRegistrationOk.Location = new System.Drawing.Point(163, 160);
             this.btnRegistrationOk.Name = "btnRegistrationOk";
-            this.btnRegistrationOk.Size = new System.Drawing.Size(75, 23);
+            this.btnRegistrationOk.Size = new System.Drawing.Size(75, 33);
             this.btnRegistrationOk.TabIndex = 11;
             this.btnRegistrationOk.Text = "Ok";
             this.btnRegistrationOk.UseVisualStyleBackColor = true;
             this.btnRegistrationOk.Click += new System.EventHandler(this.btnRegistrationOk_Click);
+            // 
+            // textBoxStatus
+            // 
+            this.textBoxStatus.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.textBoxStatus.Location = new System.Drawing.Point(182, 50);
+            this.textBoxStatus.Name = "textBoxStatus";
+            this.textBoxStatus.Size = new System.Drawing.Size(100, 24);
+            this.textBoxStatus.TabIndex = 12;
+            // 
+            // btnRegister
+            // 
+            this.btnRegister.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.btnRegister.Location = new System.Drawing.Point(260, 118);
+            this.btnRegister.Name = "btnRegister";
+            this.btnRegister.Size = new System.Drawing.Size(75, 29);
+            this.btnRegister.TabIndex = 13;
+            this.btnRegister.Text = "Register";
+            this.btnRegister.UseVisualStyleBackColor = true;
+            this.btnRegister.Click += new System.EventHandler(this.btnRegister_Click);
             // 
             // Registration
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(480, 205);
+            this.Controls.Add(this.btnRegister);
+            this.Controls.Add(this.textBoxStatus);
             this.Controls.Add(this.btnRegistrationOk);
-            this.Controls.Add(this.comboBoxChooseStatus);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.textBoxName);
             this.Controls.Add(this.textBoxID);
@@ -139,7 +154,8 @@
         private System.Windows.Forms.TextBox textBoxID;
         private System.Windows.Forms.TextBox textBoxName;
         private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.ComboBox comboBoxChooseStatus;
         private System.Windows.Forms.Button btnRegistrationOk;
+        private System.Windows.Forms.TextBox textBoxStatus;
+        private System.Windows.Forms.Button btnRegister;
     }
 }
