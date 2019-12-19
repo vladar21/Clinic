@@ -16,7 +16,8 @@ namespace Clinic
         public Registration(string Status)
         {
             InitializeComponent();
-            textBoxID.ReadOnly = true;            
+            textBoxID.ReadOnly = true;
+            textBoxID.Enabled = false;
             textBoxStatus.ReadOnly = true;
             textBoxStatus.Text = Status;
 
@@ -62,34 +63,66 @@ namespace Clinic
         {
             if (textBoxName.Text.Length > 0)
             {
-                switch (textBoxStatus.Text){
-                    case "Patient":
-                        patients p = new patients();
-                        p.name = textBoxName.Text;
-                        if (AddPatient(p))
-                        {
-                            textBoxID.Text = p.id.ToString();
-                            btnRegister.Visible = false;
-                            textBoxName.ReadOnly = true;
-                            btnRegistrationOk.Visible = true;
-                            label2.Visible = true;
-                            textBoxID.Visible = true;
-                        }
-                        break;
-                    case "Doc":
-                        docs d = new docs();
-                        d.name = textBoxName.Text;
-                        if (AddDoc(d))
-                        {
-                            textBoxID.Text = d.id.ToString();
-                            btnRegister.Visible = false;
-                            textBoxName.ReadOnly = true;
-                            btnRegistrationOk.Visible = true;
-                            label2.Visible = true;
-                            textBoxID.Visible = true;
-                        }
-                        break;
-                }                
+                using (clinicEntities db = new clinicEntities())
+                {                    
+                    switch (textBoxStatus.Text){
+
+                        case "Patient":
+                            var exist = db.patients.Where((x) => x.name == textBoxName.Text).FirstOrDefault();
+                            if (exist == null)
+                            {
+                                patients p = new patients();
+                                p.name = textBoxName.Text;
+                                if (AddPatient(p))
+                                {
+                                    textBoxID.Text = p.id.ToString();
+                                    btnRegister.Visible = false;
+                                    textBoxName.Enabled = false;
+                                    textBoxID.Enabled = false;
+                                    btnRegistrationOk.Visible = true;
+                                    label2.Visible = true;
+                                    textBoxID.Visible = true;
+                                    label1.Text = "Registration success.";
+                                    label1.BackColor = Color.GreenYellow;
+                                    label4.Text = "Current status";
+                                    label3.Text = "Your name";
+                                }
+                            }
+                            else
+                            {
+                                MessageBox.Show("There is already such a name in the database.");
+                            }
+                            break;
+
+                        case "Doc":
+                            var exist1 = db.docs.Where((x) => x.name == textBoxName.Text).FirstOrDefault();
+                            if (exist1 == null)
+                            {                            
+                                docs d = new docs();
+                                d.name = textBoxName.Text;
+                                if (AddDoc(d))
+                                {
+                                    textBoxID.Text = d.id.ToString();
+                                    btnRegister.Visible = false;
+                                    textBoxName.Enabled = false;
+                                    textBoxID.Enabled = false;
+                                    btnRegistrationOk.Visible = true;
+                                    label2.Visible = true;
+                                    textBoxID.Visible = true;
+                                    label1.Text = "Registration success.";
+                                    label1.BackColor = Color.GreenYellow;
+                                    label4.Text = "Current status";
+                                    label3.Text = "Your name";
+                                }
+                            }
+                            else
+                            {
+                                MessageBox.Show("There is already such a name in the database.");
+                            }
+                            break;
+                    }                    
+                    
+                }
             }
         }
 
@@ -98,9 +131,9 @@ namespace Clinic
             try
             {
                 using (clinicEntities db = new clinicEntities())
-                {
+                {                    
                     db.patients.Add(p);
-                    db.SaveChanges();                    
+                    db.SaveChanges();
                     return true;
                 }
             }

@@ -21,6 +21,8 @@ namespace Clinic
             InitializeComponent();
             comboBoxChooseStatus.Items.Add("Patient");
             comboBoxChooseStatus.Items.Add("Doc");
+            comboBoxChooseStatus.SelectedIndex = -1;
+            comboBoxChooseID.SelectedIndex = -1;
 
             listPatients = new List<string[]>();
             listDocs = new List<string[]>();
@@ -61,33 +63,41 @@ namespace Clinic
 
         private void btnReg_Click(object sender, EventArgs e)
         {
-            Form regfrm = new Registration(comboBoxChooseStatus.SelectedItem.ToString());
-            regfrm.Left = this.Left; // задаём открываемой форме позицию слева равную позиции текущей формы
-            regfrm.Top = this.Top; // задаём открываемой форме позицию сверху равную позиции текущей формы
-            regfrm.Show(); // отображаем Form2            
-            this.Hide(); // скрываем Form1 (this - текущая форма)
+            if (comboBoxChooseStatus.SelectedText.Length > 0 || comboBoxChooseID.SelectedText.Length == 0)
+            {
+                Form regfrm = new Registration(comboBoxChooseStatus.SelectedItem.ToString());
+                regfrm.Left = this.Left; // задаём открываемой форме позицию слева равную позиции текущей формы
+                regfrm.Top = this.Top; // задаём открываемой форме позицию сверху равную позиции текущей формы
+                regfrm.Show(); // отображаем Form2            
+                this.Hide(); // скрываем Form1 (this - текущая форма)
+
+            }
 
         }
 
         private void btnApp_Click(object sender, EventArgs e)
         {
-            switch (comboBoxChooseStatus.SelectedIndex)
+            if (comboBoxChooseStatus.SelectedText.Length > 0 && comboBoxChooseID.SelectedText.Length == 0)
             {
-                case 0:
-                    Form appfrm = new Appointment();
-                    appfrm.Left = this.Left; // задаём открываемой форме позицию слева равную позиции текущей формы
-                    appfrm.Top = this.Top; // задаём открываемой форме позицию сверху равную позиции текущей формы
-                    appfrm.Show(); // отображаем Form2
-                    this.Hide(); // скрываем Form1 (this - текущая форма)
-                    break;
-                case 1:
-                    Form schfrm = new Schedule();
-                    schfrm.Left = this.Left; // задаём открываемой форме позицию слева равную позиции текущей формы
-                    schfrm.Top = this.Top; // задаём открываемой форме позицию сверху равную позиции текущей формы
-                    schfrm.Show(); // отображаем Form2
-                    this.Hide(); // скрываем Form1 (this - текущая форма)
-                    break;
+                switch (comboBoxChooseStatus.SelectedIndex)
+                {
+                    case 0:
+                        Form appfrm = new Appointment();
+                        appfrm.Left = this.Left; // задаём открываемой форме позицию слева равную позиции текущей формы
+                        appfrm.Top = this.Top; // задаём открываемой форме позицию сверху равную позиции текущей формы
+                        appfrm.Show(); // отображаем Form2
+                        this.Hide(); // скрываем Form1 (this - текущая форма)
+                        break;
+                    case 1:
+                        Form schfrm = new Schedule();
+                        schfrm.Left = this.Left; // задаём открываемой форме позицию слева равную позиции текущей формы
+                        schfrm.Top = this.Top; // задаём открываемой форме позицию сверху равную позиции текущей формы
+                        schfrm.Show(); // отображаем Form2
+                        this.Hide(); // скрываем Form1 (this - текущая форма)
+                        break;
+                }
             }
+            
         }
 
         public async void fillComboboxID(string status)
@@ -115,10 +125,16 @@ namespace Clinic
         }
 
         private void comboBoxChooseStatus_SelectedIndexChanged(object sender, EventArgs e)
-        {            
+        {               
             ComboBox comboBox = (ComboBox)sender;
             string id = comboBox.SelectedItem.ToString();
-            fillComboboxID(id);
+            fillComboboxID(id);           
+            
+        }
+
+        private void comboBoxChooseStatus_SelectedValueChanged(object sender, EventArgs e)
+        {
+            
         }
     }
 }

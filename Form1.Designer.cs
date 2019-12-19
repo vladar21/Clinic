@@ -78,6 +78,7 @@
             this.comboBoxChooseStatus.Size = new System.Drawing.Size(121, 21);
             this.comboBoxChooseStatus.TabIndex = 8;
             this.comboBoxChooseStatus.SelectedIndexChanged += new System.EventHandler(this.comboBoxChooseStatus_SelectedIndexChanged);
+            this.comboBoxChooseStatus.SelectedValueChanged += new System.EventHandler(this.comboBoxChooseStatus_SelectedValueChanged);
             // 
             // label4
             // 
