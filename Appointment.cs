@@ -12,20 +12,20 @@ namespace Clinic
 {
     public partial class Appointment : Form
     {
-        public Appointment()
+        public Appointment(int id, Dictionary<Int32, String> listDocs)
         {
             InitializeComponent();
-            monthCalendar1.ShowTodayCircle = true;
-        }
+            
+            //monthCalendar1.ShowTodayCircle = true;
+            monthCalendar1.Enabled = false;
 
-        private void label2_Click(object sender, EventArgs e)
-        {
+            textBoxYourID.Enabled = false;
+            textBoxYourID.Text = id.ToString();
 
-        }
-
-        private void comboBoxChooseID_SelectedIndexChanged(object sender, EventArgs e)
-        {
-
+            comboBoxChooseDoc.DataSource = new BindingSource(listDocs, null);
+            comboBoxChooseDoc.DisplayMember = "Value";
+            comboBoxChooseDoc.ValueMember = "Key";
+            comboBoxChooseDoc.SelectedIndex = -1;
         }
 
         private void Appointment_FormClosed(object sender, FormClosedEventArgs e)
@@ -36,6 +36,12 @@ namespace Clinic
             ifrm.Left = this.Left; // задаём открываемой форме позицию слева равную позиции текущей формы
             ifrm.Top = this.Top; // задаём открываемой форме позицию сверху равную позиции текущей формы
             ifrm.Show(); // отображаем Form1
+
+        }
+
+        private void comboBoxChooseDoc_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            monthCalendar1.Enabled = true;
 
         }
     }

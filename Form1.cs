@@ -13,8 +13,8 @@ namespace Clinic
     public partial class Form1 : Form
     {
         // список для хранения данных из базы
-        List<string[]> listPatients;
-        List<string[]> listDocs;
+        Dictionary<Int32, String> listPatients;
+        Dictionary<Int32, String> listDocs;
 
         public Form1()
         {
@@ -22,12 +22,31 @@ namespace Clinic
             comboBoxChooseStatus.Items.Add("Patient");
             comboBoxChooseStatus.Items.Add("Doc");
             comboBoxChooseStatus.SelectedIndex = -1;
-            comboBoxChooseID.SelectedIndex = -1;
+            comboBoxChooseIDpatients.SelectedIndex = -1;
+            comboBoxChooseIDdocs.SelectedIndex = -1;
+            comboBoxChooseIDpatients.Visible = false;
+            comboBoxChooseIDdocs.Visible = false;
 
-            listPatients = new List<string[]>();
-            listDocs = new List<string[]>();
+            listPatients = new Dictionary<int, string>();
+            listDocs = new Dictionary<int, string>();
+
+            LoadPatients();
+            LoadDocs();
         }
-
+        // задаем ширину выпадающего списка комбобокса
+        int setWidth_comboBox(ComboBox cb)
+        {
+            int maxWidth = 0, temp = 0;
+            foreach (var s in cb.Items)
+            {
+                temp = TextRenderer.MeasureText(s.ToString(), cb.Font).Width;
+                if (temp > maxWidth)
+                {
+                    maxWidth = temp;
+                }
+            }
+            return maxWidth;// + SystemInformation.VerticalScrollBarWidth;
+        }
         // асинхронная функция для загрузки данных из базы в список data
         private async Task LoadPatients()
         {            
@@ -36,10 +55,8 @@ namespace Clinic
                 clinicEntities db = new clinicEntities();
                 var pat = db.patients.ToList();
                 foreach (var p in pat)
-                {
-                    listPatients.Add(new string[2]);
-                    listPatients[listPatients.Count - 1][0] = p.id.ToString();
-                    listPatients[listPatients.Count - 1][1] = p.name.ToString();
+                {                    
+                    listPatients.Add(Convert.ToInt32(p.id), p.name);
                 }
             });
         }
@@ -53,23 +70,33 @@ namespace Clinic
                 
                 var doc = db.docs.ToList();
                 foreach (var d in doc)
-                {
-                    listDocs.Add(new string[2]);
-                    listDocs[listDocs.Count - 1][0] = d.id.ToString();
-                    listDocs[listDocs.Count - 1][1] = d.name.ToString();
+                {                    
+                    listDocs.Add(Convert.ToInt32(d.id), d.name);
                 }
             });
         }
 
         private void btnReg_Click(object sender, EventArgs e)
         {
-            if (comboBoxChooseStatus.SelectedText.Length > 0 || comboBoxChooseID.SelectedText.Length == 0)
+            if (comboBoxChooseStatus.SelectedText.Length > 0 || comboBoxChooseIDpatients.SelectedText.Length == 0)
             {
-                Form regfrm = new Registration(comboBoxChooseStatus.SelectedItem.ToString());
-                regfrm.Left = this.Left; // задаём открываемой форме позицию слева равную позиции текущей формы
-                regfrm.Top = this.Top; // задаём открываемой форме позицию сверху равную позиции текущей формы
-                regfrm.Show(); // отображаем Form2            
-                this.Hide(); // скрываем Form1 (this - текущая форма)
+                if (comboBoxChooseStatus.Text == "Patient")
+                {
+                    Form regfrm = new Registration(comboBoxChooseStatus.SelectedItem.ToString(), listDocs);
+                    regfrm.Left = this.Left; // задаём открываемой форме позицию слева равную позиции текущей формы
+                    regfrm.Top = this.Top; // задаём открываемой форме позицию сверху равную позиции текущей формы
+                    regfrm.Show(); // отображаем Form2            
+                    this.Hide(); // скрываем Form1 (this - текущая форма)
+                }
+                if (comboBoxChooseStatus.Text == "Doc")
+                {
+                    Form regfrm = new Registration(comboBoxChooseStatus.SelectedItem.ToString(), listPatients);
+                    regfrm.Left = this.Left; // задаём открываемой форме позицию слева равную позиции текущей формы
+                    regfrm.Top = this.Top; // задаём открываемой форме позицию сверху равную позиции текущей формы
+                    regfrm.Show(); // отображаем Form2            
+                    this.Hide(); // скрываем Form1 (this - текущая форма)
+                }
+                
 
             }
 
@@ -77,19 +104,20 @@ namespace Clinic
 
         private void btnApp_Click(object sender, EventArgs e)
         {
-            if (comboBoxChooseStatus.SelectedText.Length > 0 && comboBoxChooseID.SelectedText.Length == 0)
+            if (comboBoxChooseStatus.Text.Length > 0 && (comboBoxChooseIDpatients.Text.Length > 0 ||
+                comboBoxChooseIDdocs.Text.Length > 0))
             {
-                switch (comboBoxChooseStatus.SelectedIndex)
+                switch (comboBoxChooseStatus.Text)
                 {
-                    case 0:
-                        Form appfrm = new Appointment();
+                    case "Patient":
+                        Form appfrm = new Appointment(Convert.ToInt32(comboBoxChooseIDpatients.SelectedValue), listDocs);
                         appfrm.Left = this.Left; // задаём открываемой форме позицию слева равную позиции текущей формы
                         appfrm.Top = this.Top; // задаём открываемой форме позицию сверху равную позиции текущей формы
                         appfrm.Show(); // отображаем Form2
                         this.Hide(); // скрываем Form1 (this - текущая форма)
                         break;
-                    case 1:
-                        Form schfrm = new Schedule();
+                    case "Doc":
+                        Form schfrm = new Schedule(Convert.ToInt32(comboBoxChooseIDdocs.SelectedValue));
                         schfrm.Left = this.Left; // задаём открываемой форме позицию слева равную позиции текущей формы
                         schfrm.Top = this.Top; // задаём открываемой форме позицию сверху равную позиции текущей формы
                         schfrm.Show(); // отображаем Form2
@@ -102,24 +130,30 @@ namespace Clinic
 
         public async void fillComboboxID(string status)
         {
-            comboBoxChooseID.Items.Clear();
+            
             switch (status)
             {
-                case "Patient":
-                    listPatients.Clear();
-                    await LoadPatients();                    
-                    foreach(var l in listPatients)
-                    {
-                        comboBoxChooseID.Items.Add(l[1].ToString());
-                    }
+                case "Patient":                   
+                    
+                    comboBoxChooseIDdocs.Visible = false;
+                    comboBoxChooseIDpatients.Visible = true;
+                    comboBoxChooseIDpatients.DataSource = new BindingSource(listPatients, null);
+                    comboBoxChooseIDpatients.DisplayMember = "Value";
+                    comboBoxChooseIDpatients.ValueMember = "Key";
+                    comboBoxChooseIDpatients.SelectedIndex = -1;
+                    comboBoxChooseIDpatients.Width = setWidth_comboBox(comboBoxChooseIDpatients);
+                    
                     break;
                 case "Doc":
-                    listDocs.Clear();
-                    await LoadDocs();                    
-                    foreach (var l in listDocs)
-                    {
-                        comboBoxChooseID.Items.Add(l[1].ToString());
-                    }
+                                        
+                    comboBoxChooseIDpatients.Visible = false;
+                    comboBoxChooseIDdocs.Visible = true;
+                    comboBoxChooseIDdocs.DataSource = new BindingSource(listDocs, null);
+                    comboBoxChooseIDdocs.DisplayMember = "Value";
+                    comboBoxChooseIDdocs.ValueMember = "Key";
+                    comboBoxChooseIDdocs.SelectedIndex = -1;
+                    comboBoxChooseIDdocs.Width = setWidth_comboBox(comboBoxChooseIDdocs);
+
                     break;
             }
         }
@@ -132,9 +166,5 @@ namespace Clinic
             
         }
 
-        private void comboBoxChooseStatus_SelectedValueChanged(object sender, EventArgs e)
-        {
-            
-        }
     }
 }

@@ -12,7 +12,7 @@ namespace Clinic
 {
     public partial class Schedule : Form
     {
-        public Schedule()
+        public Schedule(int id)
         {
             InitializeComponent();
         }

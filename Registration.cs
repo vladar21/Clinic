@@ -12,10 +12,15 @@ namespace Clinic
 {
     public partial class Registration : Form
     {
- 
-        public Registration(string Status)
+        int Patient_id { set; get; }
+        int Doc_id { set; get; }
+        Dictionary<Int32, String> temp;
+
+        public Registration(string Status, Dictionary<Int32, String> t)
         {
             InitializeComponent();
+
+            temp = t;
             textBoxID.ReadOnly = true;
             textBoxID.Enabled = false;
             textBoxStatus.ReadOnly = true;
@@ -43,14 +48,14 @@ namespace Clinic
             switch (textBoxStatus.Text)
             {
                 case "Patient":
-                    Form appfrm = new Appointment();
+                    Form appfrm = new Appointment(Patient_id, temp);
                     appfrm.Left = this.Left; // задаём открываемой форме позицию слева равную позиции текущей формы
                     appfrm.Top = this.Top; // задаём открываемой форме позицию сверху равную позиции текущей формы
                     appfrm.Show(); // отображаем Form2
                     this.Hide(); // скрываем Form1 (this - текущая форма)
                     break;
                 case "Doc":
-                    Form schfrm = new Schedule();
+                    Form schfrm = new Schedule(Doc_id);
                     schfrm.Left = this.Left; // задаём открываемой форме позицию слева равную позиции текущей формы
                     schfrm.Top = this.Top; // задаём открываемой форме позицию сверху равную позиции текущей формы
                     schfrm.Show(); // отображаем Form2
@@ -73,6 +78,8 @@ namespace Clinic
                             {
                                 patients p = new patients();
                                 p.name = textBoxName.Text;
+                                Patient_id = p.id;
+
                                 if (AddPatient(p))
                                 {
                                     textBoxID.Text = p.id.ToString();
@@ -100,6 +107,8 @@ namespace Clinic
                             {                            
                                 docs d = new docs();
                                 d.name = textBoxName.Text;
+                                Doc_id = d.id;
+
                                 if (AddDoc(d))
                                 {
                                     textBoxID.Text = d.id.ToString();

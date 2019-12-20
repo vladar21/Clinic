@@ -33,9 +33,10 @@
             this.btnReg = new System.Windows.Forms.Button();
             this.comboBoxChooseStatus = new System.Windows.Forms.ComboBox();
             this.label4 = new System.Windows.Forms.Label();
-            this.comboBoxChooseID = new System.Windows.Forms.ComboBox();
+            this.comboBoxChooseIDpatients = new System.Windows.Forms.ComboBox();
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
+            this.comboBoxChooseIDdocs = new System.Windows.Forms.ComboBox();
             this.SuspendLayout();
             // 
             // label1
@@ -78,7 +79,7 @@
             this.comboBoxChooseStatus.Size = new System.Drawing.Size(121, 21);
             this.comboBoxChooseStatus.TabIndex = 8;
             this.comboBoxChooseStatus.SelectedIndexChanged += new System.EventHandler(this.comboBoxChooseStatus_SelectedIndexChanged);
-            this.comboBoxChooseStatus.SelectedValueChanged += new System.EventHandler(this.comboBoxChooseStatus_SelectedValueChanged);
+            
             // 
             // label4
             // 
@@ -90,13 +91,13 @@
             this.label4.TabIndex = 7;
             this.label4.Text = "Patient or Doc?";
             // 
-            // comboBoxChooseID
+            // comboBoxChooseIDpatients
             // 
-            this.comboBoxChooseID.FormattingEnabled = true;
-            this.comboBoxChooseID.Location = new System.Drawing.Point(179, 71);
-            this.comboBoxChooseID.Name = "comboBoxChooseID";
-            this.comboBoxChooseID.Size = new System.Drawing.Size(44, 21);
-            this.comboBoxChooseID.TabIndex = 11;
+            this.comboBoxChooseIDpatients.FormattingEnabled = true;
+            this.comboBoxChooseIDpatients.Location = new System.Drawing.Point(179, 71);
+            this.comboBoxChooseIDpatients.Name = "comboBoxChooseIDpatients";
+            this.comboBoxChooseIDpatients.Size = new System.Drawing.Size(44, 21);
+            this.comboBoxChooseIDpatients.TabIndex = 11;
             // 
             // label2
             // 
@@ -118,13 +119,23 @@
             this.label3.TabIndex = 12;
             this.label3.Text = "If you don\'t have ID, you have to register:";
             // 
+            // comboBoxChooseIDdocs
+            // 
+            this.comboBoxChooseIDdocs.FormattingEnabled = true;
+            this.comboBoxChooseIDdocs.Location = new System.Drawing.Point(179, 71);
+            this.comboBoxChooseIDdocs.Name = "comboBoxChooseIDdocs";
+            this.comboBoxChooseIDdocs.Size = new System.Drawing.Size(44, 21);
+            this.comboBoxChooseIDdocs.TabIndex = 13;
+            
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(352, 211);
+            this.Controls.Add(this.comboBoxChooseIDdocs);
             this.Controls.Add(this.label3);
-            this.Controls.Add(this.comboBoxChooseID);
+            this.Controls.Add(this.comboBoxChooseIDpatients);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.comboBoxChooseStatus);
             this.Controls.Add(this.label4);
@@ -145,9 +156,10 @@
         private System.Windows.Forms.Button btnReg;
         private System.Windows.Forms.ComboBox comboBoxChooseStatus;
         private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.ComboBox comboBoxChooseID;
+        private System.Windows.Forms.ComboBox comboBoxChooseIDpatients;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.ComboBox comboBoxChooseIDdocs;
     }
 }
 
