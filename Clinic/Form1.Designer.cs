@@ -37,6 +37,7 @@
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.comboBoxChooseIDdocs = new System.Windows.Forms.ComboBox();
+            this.button1 = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // label1
@@ -52,7 +53,7 @@
             // btnApp
             // 
             this.btnApp.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.btnApp.Location = new System.Drawing.Point(115, 103);
+            this.btnApp.Location = new System.Drawing.Point(115, 146);
             this.btnApp.Name = "btnApp";
             this.btnApp.Size = new System.Drawing.Size(116, 31);
             this.btnApp.TabIndex = 1;
@@ -63,7 +64,7 @@
             // btnReg
             // 
             this.btnReg.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.btnReg.Location = new System.Drawing.Point(115, 169);
+            this.btnReg.Location = new System.Drawing.Point(115, 212);
             this.btnReg.Name = "btnReg";
             this.btnReg.Size = new System.Drawing.Size(116, 31);
             this.btnReg.TabIndex = 2;
@@ -74,18 +75,17 @@
             // comboBoxChooseStatus
             // 
             this.comboBoxChooseStatus.FormattingEnabled = true;
-            this.comboBoxChooseStatus.Location = new System.Drawing.Point(180, 45);
+            this.comboBoxChooseStatus.Location = new System.Drawing.Point(180, 88);
             this.comboBoxChooseStatus.Name = "comboBoxChooseStatus";
             this.comboBoxChooseStatus.Size = new System.Drawing.Size(121, 21);
             this.comboBoxChooseStatus.TabIndex = 8;
             this.comboBoxChooseStatus.SelectedIndexChanged += new System.EventHandler(this.comboBoxChooseStatus_SelectedIndexChanged);
-            
             // 
             // label4
             // 
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label4.Location = new System.Drawing.Point(51, 45);
+            this.label4.Location = new System.Drawing.Point(51, 88);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(111, 18);
             this.label4.TabIndex = 7;
@@ -94,7 +94,7 @@
             // comboBoxChooseIDpatients
             // 
             this.comboBoxChooseIDpatients.FormattingEnabled = true;
-            this.comboBoxChooseIDpatients.Location = new System.Drawing.Point(179, 71);
+            this.comboBoxChooseIDpatients.Location = new System.Drawing.Point(179, 114);
             this.comboBoxChooseIDpatients.Name = "comboBoxChooseIDpatients";
             this.comboBoxChooseIDpatients.Size = new System.Drawing.Size(44, 21);
             this.comboBoxChooseIDpatients.TabIndex = 11;
@@ -103,7 +103,7 @@
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label2.Location = new System.Drawing.Point(49, 72);
+            this.label2.Location = new System.Drawing.Point(49, 115);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(112, 18);
             this.label2.TabIndex = 10;
@@ -113,7 +113,7 @@
             // 
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label3.Location = new System.Drawing.Point(49, 143);
+            this.label3.Location = new System.Drawing.Point(49, 186);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(273, 18);
             this.label3.TabIndex = 12;
@@ -122,17 +122,28 @@
             // comboBoxChooseIDdocs
             // 
             this.comboBoxChooseIDdocs.FormattingEnabled = true;
-            this.comboBoxChooseIDdocs.Location = new System.Drawing.Point(179, 71);
+            this.comboBoxChooseIDdocs.Location = new System.Drawing.Point(179, 114);
             this.comboBoxChooseIDdocs.Name = "comboBoxChooseIDdocs";
             this.comboBoxChooseIDdocs.Size = new System.Drawing.Size(44, 21);
             this.comboBoxChooseIDdocs.TabIndex = 13;
-            
+            // 
+            // button1
+            // 
+            this.button1.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.button1.Location = new System.Drawing.Point(87, 42);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(159, 38);
+            this.button1.TabIndex = 14;
+            this.button1.Text = "CommonSchedule";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(352, 211);
+            this.ClientSize = new System.Drawing.Size(352, 256);
+            this.Controls.Add(this.button1);
             this.Controls.Add(this.comboBoxChooseIDdocs);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.comboBoxChooseIDpatients);
@@ -160,6 +171,7 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.ComboBox comboBoxChooseIDdocs;
+        private System.Windows.Forms.Button button1;
     }
 }
 

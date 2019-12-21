@@ -17,3 +17,4 @@ C:\Users\User\source\repos\Clinic\Clinic\obj\Debug\Clinic.pdb
 C:\Users\User\source\repos\Clinic\Clinic\obj\Debug\Clinic.Registration.resources
 C:\Users\User\source\repos\Clinic\Clinic\obj\Debug\Clinic.Appointment.resources
 C:\Users\User\source\repos\Clinic\Clinic\obj\Debug\Clinic.Schedule.resources
+C:\Users\User\source\repos\Clinic\Clinic\obj\Debug\Clinic.CommonSchedule.resources

@@ -10,19 +10,14 @@ using System.Windows.Forms;
 
 namespace Clinic
 {
-    public partial class Schedule : Form
+    public partial class CommonSchedule : Form
     {
-        public int Id { set; get; }
-
-        public Schedule(int id)
+        public CommonSchedule()
         {
             InitializeComponent();
 
             listView1.View = View.Details;
 
-            Id = id;
-            textBoxID.Text = Id.ToString();
-            textBoxID.Enabled = false;
             LoadData();
         }
 
@@ -43,21 +38,29 @@ namespace Clinic
             {
                 listView1.Clear();
 
-                var apptable = db.appointments.Where(x => x.patient_id == Id).ToList();
+                var appdocs = db.docs.OrderBy(x => x.name).ToList();
+                var apptable = db.appointments.OrderBy(x => x.appday).ToList();                
 
-                listView1.Columns.Add("YourName");
-                ListViewItem lvi = new ListViewItem();
-                lvi.Text = db.patients.Where(x => x.id == Id).FirstOrDefault().name;
-
+                listView1.Columns.Add("DocName");
                 foreach (var t in apptable)
                 {
                     DateTime dt = (DateTime)t.appday;
                     listView1.Columns.Add(dt.ToString("d"));
-                    lvi.SubItems.Add(t.docs.name.ToString());
                 }
 
-                listView1.Items.Add(lvi);
-                listView1.Width = -1;
+                foreach (var d in appdocs)
+                {
+                    ListViewItem lvi = new ListViewItem();
+                    lvi.Text = d.name;
+                    var temp = db.appointments.Where(x => x.doc_id == d.id).ToList();
+                    foreach(var t in temp)
+                    {
+                        lvi.SubItems.Add(t.patients.name.ToString());
+                    }
+                   
+                    listView1.Items.Add(lvi);                    
+                }
+          
 
             }
         }

@@ -158,5 +158,13 @@ namespace Clinic
             
         }
 
+        private void button1_Click(object sender, EventArgs e)
+        {
+            Form commfrm = new CommonSchedule();
+            commfrm.Left = this.Left; // задаём открываемой форме позицию слева равную позиции текущей формы
+            commfrm.Top = this.Top; // задаём открываемой форме позицию сверху равную позиции текущей формы
+            commfrm.Show(); // отображаем Form2
+            this.Hide(); // скрываем Form1 (this - текущая форма)
+        }
     }
 }

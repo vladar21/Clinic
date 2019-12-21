@@ -52,14 +52,10 @@ namespace Clinic
             {
                 using (clinicEntities db = new clinicEntities())
                 {
-                    //var dataset = entities.processlists
-                    //.Where(x => x.environmentID == environmentid && x.ProcessName == processname && x.RemoteIP == remoteip && x.CommandLine == commandlinepart)
-                    //.Select(x => new { x.ServerName, x.ProcessID, x.Username }).ToList();
                     dateTimePicker1.CustomFormat = "yyyy-mm-dd";
                     DateTime Date = dateTimePicker1.Value.Date;
                     var existdoc = db.appointments.Where(x => x.doc_id == docid && x.patient_id == patientid && x.appday == Date).FirstOrDefault();
-                    //var existpat = db.existdoc.Where((x) => x.patient_id == patientid).FirstOrDefault();
-                    //var extistdate = db.appointments.Where((x) => x.appday == dateTimePicker1.Value).FirstOrDefault();
+                   
                     if (existdoc == null)
                     {
                         appointments appo = new appointments();
@@ -68,6 +64,12 @@ namespace Clinic
                         appo.patient_id = patientid;
                         db.appointments.Add(appo);
                         db.SaveChanges();
+
+                        Form schfrm = new Schedule(patientid);
+                        schfrm.Left = this.Left; // задаём открываемой форме позицию слева равную позиции текущей формы
+                        schfrm.Top = this.Top; // задаём открываемой форме позицию сверху равную позиции текущей формы
+                        schfrm.Show(); // отображаем Form2
+                        this.Hide(); // скрываем Form1 (this - текущая форма)
                     }
                     else { MessageBox.Show("You already made this entry."); }                    
                 }
@@ -76,7 +78,6 @@ namespace Clinic
 
         private void comboBoxChooseDoc_SelectedIndexChanged(object sender, EventArgs e)
         {
-            //comboBox.SelectedItem.GetType().GetProperty("Value").GetValue(comboBox.SelectedItem,1)
             if (comboBoxChooseDoc.SelectedIndex == -1) docid = 0;
             else docid = ((KeyValuePair<int, string>)comboBoxChooseDoc.SelectedItem).Key;
         }
