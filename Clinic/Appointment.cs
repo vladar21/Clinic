@@ -19,6 +19,8 @@ namespace Clinic
         {
             InitializeComponent();
 
+            this.StartPosition = FormStartPosition.Manual;
+
             patientid = id;
  
             textBoxYourID.Enabled = false;
@@ -65,7 +67,7 @@ namespace Clinic
                         db.appointments.Add(appo);
                         db.SaveChanges();
 
-                        Form schfrm = new Schedule(patientid);
+                        Form schfrm = new Schedule(patientid, "Patient");
                         schfrm.Left = this.Left; // задаём открываемой форме позицию слева равную позиции текущей формы
                         schfrm.Top = this.Top; // задаём открываемой форме позицию сверху равную позиции текущей формы
                         schfrm.Show(); // отображаем Form2

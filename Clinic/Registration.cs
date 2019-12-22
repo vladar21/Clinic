@@ -14,12 +14,15 @@ namespace Clinic
     {
         int Patient_id { set; get; }
         int Doc_id { set; get; }
+        string Status { set; get; }
         Dictionary<Int32, String> temp;
 
-        public Registration(string Status, Dictionary<Int32, String> t)
+        public Registration(string status, Dictionary<Int32, String> t)
         {
             InitializeComponent();
 
+            this.StartPosition = FormStartPosition.Manual;
+            Status = status;
             temp = t;
             textBoxID.ReadOnly = true;
             textBoxID.Enabled = false;
@@ -55,7 +58,7 @@ namespace Clinic
                     this.Hide(); // скрываем Form1 (this - текущая форма)
                     break;
                 case "Doc":
-                    Form schfrm = new Schedule(Doc_id);
+                    Form schfrm = new Schedule(Doc_id, Status);
                     schfrm.Left = this.Left; // задаём открываемой форме позицию слева равную позиции текущей формы
                     schfrm.Top = this.Top; // задаём открываемой форме позицию сверху равную позиции текущей формы
                     schfrm.Show(); // отображаем Form2
@@ -77,11 +80,11 @@ namespace Clinic
                             if (exist == null)
                             {
                                 patients p = new patients();
-                                p.name = textBoxName.Text;
-                                Patient_id = p.id;
+                                p.name = textBoxName.Text;                                
 
                                 if (AddPatient(p))
                                 {
+                                    Patient_id = p.id;
                                     textBoxID.Text = p.id.ToString();
                                     btnRegister.Visible = false;
                                     textBoxName.Enabled = false;
@@ -106,11 +109,11 @@ namespace Clinic
                             if (exist1 == null)
                             {                            
                                 docs d = new docs();
-                                d.name = textBoxName.Text;
-                                Doc_id = d.id;
+                                d.name = textBoxName.Text;                               
 
                                 if (AddDoc(d))
                                 {
+                                    Doc_id = d.id;
                                     textBoxID.Text = d.id.ToString();
                                     btnRegister.Visible = false;
                                     textBoxName.Enabled = false;
@@ -148,7 +151,7 @@ namespace Clinic
             }
             catch
             {
-                // логгируем ошибку, выдаем сообещине о неудачной попытке
+                // логируем ошибку, выдаем сообещине о неудачной попытке
                 return false;
             }
         }
@@ -166,7 +169,7 @@ namespace Clinic
             }
             catch
             {
-                // логгируем ошибку, выдаем сообещине о неудачной попытке
+                // логируем ошибку, выдаем сообещине о неудачной попытке
                 return false;
             }
         }

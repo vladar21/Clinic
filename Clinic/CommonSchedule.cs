@@ -15,9 +15,6 @@ namespace Clinic
         public CommonSchedule()
         {
             InitializeComponent();
-
-            listView1.View = View.Details;
-
             LoadData();
         }
 
@@ -36,32 +33,65 @@ namespace Clinic
         {
             using (clinicEntities db = new clinicEntities())
             {
-                listView1.Clear();
+                treeView1.Nodes.Clear();
 
                 var appdocs = db.docs.OrderBy(x => x.name).ToList();
-                var apptable = db.appointments.OrderBy(x => x.appday).ToList();                
+                var apptable = db.appointments.OrderBy(x => x.appday).ToList();
+                var appdays = db.appointments.Select(x => x.appday).Distinct().ToList();
+                appdays = appdays.OrderBy(y => y.Value).ToList();
 
-                listView1.Columns.Add("DocName");
-                foreach (var t in apptable)
+                TreeNode root = new TreeNode("Schedule");
+                root.Expand();
+                TreeNode rootdocs = new TreeNode("By Docs");
+                rootdocs.ExpandAll();
+                root.Nodes.Add(rootdocs);                
+                TreeNode rootdays = new TreeNode("By Days");
+                rootdays.ExpandAll();
+                root.Nodes.Add(rootdays);
+                foreach (var doc in appdocs)
                 {
-                    DateTime dt = (DateTime)t.appday;
-                    listView1.Columns.Add(dt.ToString("d"));
-                }
+                    TreeNode treedoc = new TreeNode(doc.name);
+                    var tempdays = db.appointments.Where(x => x.doc_id == doc.id).Select(x => x.appday).Distinct().ToList();
+                    tempdays = tempdays.OrderBy(x => x.Value).ToList();
 
-                foreach (var d in appdocs)
-                {
-                    ListViewItem lvi = new ListViewItem();
-                    lvi.Text = d.name;
-                    var temp = db.appointments.Where(x => x.doc_id == d.id).ToList();
-                    foreach(var t in temp)
+                    foreach(var day in tempdays)
                     {
-                        lvi.SubItems.Add(t.patients.name.ToString());
+                        DateTime dt = (DateTime)day;
+                        TreeNode treeday = new TreeNode(dt.ToString("d"));
+                        treedoc.Nodes.Add(treeday);
+                        var temppatients = db.appointments.Where(y => y.appday == day && y.doc_id == doc.id);
+                        foreach(var patient in temppatients)
+                        {
+                            treeday.Nodes.Add(new TreeNode(patient.patients.name));
+                        }
                     }
-                   
-                    listView1.Items.Add(lvi);                    
+                    rootdocs.Nodes.Add(treedoc);
                 }
-          
 
+                foreach (var day in appdays)
+                {
+                    DateTime dt = (DateTime)day;
+                    TreeNode treeday = new TreeNode(dt.ToString("d"));   
+                    
+                    var tempdocs = db.appointments.Where(x => x.appday == day).Select(x => x.docs.name).Distinct().ToList();
+                    tempdocs = tempdocs.OrderBy(x => x).ToList();
+
+                    foreach (var doc in tempdocs)
+                    {
+                        TreeNode treedoc = new TreeNode(doc);
+                        treeday.Nodes.Add(treedoc);
+                        var temppatients = db.appointments.Where(y => y.appday == day && y.docs.name == doc);
+                        foreach (var patient in temppatients)
+                        {
+                            treedoc.Nodes.Add(new TreeNode(patient.patients.name));
+                        }
+                    }
+                    rootdays.Nodes.Add(treeday);
+                }
+
+                treeView1.Nodes.Add(root);
+               
+               
             }
         }
     }

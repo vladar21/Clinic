@@ -19,6 +19,9 @@ namespace Clinic
         public Form1()
         {
             InitializeComponent();
+
+            this.StartPosition = FormStartPosition.CenterScreen;
+
             comboBoxChooseStatus.Items.Add("Patient");
             comboBoxChooseStatus.Items.Add("Doc");
             comboBoxChooseStatus.SelectedIndex = -1;
@@ -71,7 +74,7 @@ namespace Clinic
 
         private void btnReg_Click(object sender, EventArgs e)
         {
-            if (comboBoxChooseStatus.SelectedText.Length > 0 || comboBoxChooseIDpatients.SelectedText.Length == 0)
+            if (comboBoxChooseIDpatients.Text.Length == 0)
             {
                 if (comboBoxChooseStatus.Text == "Patient")
                 {
@@ -109,7 +112,7 @@ namespace Clinic
                         this.Hide(); // скрываем Form1 (this - текущая форма)
                         break;
                     case "Doc":
-                        Form schfrm = new Schedule(Convert.ToInt32(comboBoxChooseIDdocs.SelectedValue));
+                        Form schfrm = new Schedule(Convert.ToInt32(comboBoxChooseIDdocs.SelectedValue), "Doc");
                         schfrm.Left = this.Left; // задаём открываемой форме позицию слева равную позиции текущей формы
                         schfrm.Top = this.Top; // задаём открываемой форме позицию сверху равную позиции текущей формы
                         schfrm.Show(); // отображаем Form2
@@ -120,7 +123,7 @@ namespace Clinic
             
         }
 
-        public async void fillComboboxID(string status)
+        public void fillComboboxID(string status)
         {
             
             switch (status)
@@ -160,7 +163,7 @@ namespace Clinic
 
         private void button1_Click(object sender, EventArgs e)
         {
-            Form commfrm = new CommonSchedule();
+            Form commfrm = new CommonSchedule();            
             commfrm.Left = this.Left; // задаём открываемой форме позицию слева равную позиции текущей формы
             commfrm.Top = this.Top; // задаём открываемой форме позицию сверху равную позиции текущей формы
             commfrm.Show(); // отображаем Form2

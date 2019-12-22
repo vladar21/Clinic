@@ -33,6 +33,7 @@
             this.textBoxID = new System.Windows.Forms.TextBox();
             this.btnScheduleOk = new System.Windows.Forms.Button();
             this.listView1 = new System.Windows.Forms.ListView();
+            this.label3 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // label1
@@ -67,25 +68,37 @@
             this.btnScheduleOk.Font = new System.Drawing.Font("Microsoft Sans Serif", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.btnScheduleOk.Location = new System.Drawing.Point(448, 47);
             this.btnScheduleOk.Name = "btnScheduleOk";
-            this.btnScheduleOk.Size = new System.Drawing.Size(75, 32);
+            this.btnScheduleOk.Size = new System.Drawing.Size(135, 32);
             this.btnScheduleOk.TabIndex = 4;
-            this.btnScheduleOk.Text = "Ok";
+            this.btnScheduleOk.Text = "Clinic Schedule";
             this.btnScheduleOk.UseVisualStyleBackColor = true;
+            this.btnScheduleOk.Click += new System.EventHandler(this.btnScheduleOk_Click);
             // 
             // listView1
             // 
             this.listView1.HideSelection = false;
-            this.listView1.Location = new System.Drawing.Point(12, 96);
+            this.listView1.Location = new System.Drawing.Point(12, 123);
             this.listView1.Name = "listView1";
-            this.listView1.Size = new System.Drawing.Size(607, 239);
+            this.listView1.Size = new System.Drawing.Size(607, 212);
             this.listView1.TabIndex = 5;
             this.listView1.UseCompatibleStateImageBehavior = false;
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label3.Location = new System.Drawing.Point(251, 96);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(114, 20);
+            this.label3.TabIndex = 6;
+            this.label3.Text = "List of Patients";
             // 
             // Schedule
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(631, 348);
+            this.Controls.Add(this.label3);
             this.Controls.Add(this.listView1);
             this.Controls.Add(this.btnScheduleOk);
             this.Controls.Add(this.textBoxID);
@@ -106,5 +119,6 @@
         private System.Windows.Forms.TextBox textBoxID;
         private System.Windows.Forms.Button btnScheduleOk;
         private System.Windows.Forms.ListView listView1;
+        private System.Windows.Forms.Label label3;
     }
 }
