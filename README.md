@@ -1,3 +1,3 @@
-# Example Clinic's Schedule
+# Clinic's Schedule Example
 
-## SQL Server + EntityFramework + Linq + C# (WinForms)
+## Made on by^ SQL Server + EntityFramework + Linq + C# (WinForms)
