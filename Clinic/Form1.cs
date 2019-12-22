@@ -1,11 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace Clinic
@@ -15,6 +10,8 @@ namespace Clinic
         // список для хранения данных из базы
         Dictionary<Int32, String> listPatients;
         Dictionary<Int32, String> listDocs;
+        string Status { set; get; }
+        int ID { set; get; }
 
         public Form1()
         {
@@ -157,6 +154,7 @@ namespace Clinic
         {               
             ComboBox comboBox = (ComboBox)sender;
             string id = comboBox.SelectedItem.ToString();
+            Status = id;
             fillComboboxID(id);           
             
         }
@@ -168,6 +166,39 @@ namespace Clinic
             commfrm.Top = this.Top; // задаём открываемой форме позицию сверху равную позиции текущей формы
             commfrm.Show(); // отображаем Form2
             this.Hide(); // скрываем Form1 (this - текущая форма)
+        }
+
+        private void btnSchedule_Click(object sender, EventArgs e)
+        {
+            if (comboBoxChooseIDpatients.Text.Length > 0)
+            {
+                Form schfrm = new Schedule(ID, Status);
+                schfrm.Left = this.Left; // задаём открываемой форме позицию слева равную позиции текущей формы
+                schfrm.Top = this.Top; // задаём открываемой форме позицию сверху равную позиции текущей формы
+                schfrm.Show(); // отображаем Form2
+                this.Hide(); // скрываем Form1 (this - текущая форма)
+            }
+            
+        }
+
+        private void comboBoxChooseIDdocs_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            // get ComboBox from sender
+            ComboBox comboBox = (ComboBox)sender;
+            if (comboBox.SelectedIndex != -1)
+            {
+                ID = ((KeyValuePair<int, string>)comboBox.SelectedItem).Key;
+            }           
+        }
+
+        private void comboBoxChooseIDpatients_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            // get ComboBox from sender
+            ComboBox comboBox = (ComboBox)sender;
+            if (comboBox.SelectedIndex != -1)
+            {
+                ID = ((KeyValuePair<int, string>)comboBox.SelectedItem).Key;
+            }
         }
     }
 }
